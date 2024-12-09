@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class AdventD5 {
@@ -10,6 +10,7 @@ public class AdventD5 {
         ArrayList<String> fileData = getFileData("src/Day5Input.txt");
         ArrayList<String> lists = new ArrayList<String>();
         ArrayList<String> rules = new ArrayList<String>();
+        ArrayList<Integer> wrongs = new ArrayList<>();
         for (int i = 0; i < fileData.size(); i++) {
             if (fileData.get(i).length() > 5) {
                 lists.add(fileData.get(i));
@@ -20,11 +21,19 @@ public class AdventD5 {
                 rules.add(fileData.get(u));
             }
         }
-        for (int j = 0; j < rules.size(); j++) {
-            String before = rules.get(j).substring(0, 2);
-            String after = rules.get(j).substring(3);
-            
+        for (int j = 0; j < lists.size(); j++) {
+            System.out.println(lists.get(j));
+            for (String rule : rules) {
+                int num1 = lists.get(j).indexOf(rule.substring(0, 2));
+                int num2 = lists.get(j).indexOf(rule.substring(3, 5));
+                if (num1 != -1 && num2 != -1) {
+                    if (num1 > num2) {
+                        lists.remove(j);
+                    }
+                }
+            }
         }
+        System.out.println(lists);
     }
     public static ArrayList<String> getFileData(String fileName) {
         //192
