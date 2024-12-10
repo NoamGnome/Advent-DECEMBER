@@ -21,19 +21,20 @@ public class AdventD5 {
                 rules.add(fileData.get(u));
             }
         }
-        for (int j = 0; j < lists.size(); j++) {
-            System.out.println(lists.get(j));
-            for (String rule : rules) {
-                int num1 = lists.get(j).indexOf(rule.substring(0, 2));
-                int num2 = lists.get(j).indexOf(rule.substring(3, 5));
-                if (num1 != -1 && num2 != -1) {
-                    if (num1 > num2) {
-                        lists.remove(j);
-                    }
+        int k = 0;
+        while (k != 192) {
+            String list = lists.get(k);
+            for (int i = 0; i < rules.size(); i++) {
+                int firstNum = list.indexOf(rules.get(i).substring(0, 2));
+                int secondNum = list.indexOf(rules.get(i).substring(3,5));
+                if ((firstNum != -1 && secondNum != -1) && (firstNum > secondNum)) {
+                    System.out.println(firstNum + " " + secondNum);
+                    System.out.println(rules.get(i).substring(0, 2) + " " + rules.get(i).substring(3,5));
+                    System.out.println(lists.get(k));
                 }
             }
+            k++;
         }
-        System.out.println(lists);
     }
     public static ArrayList<String> getFileData(String fileName) {
         //192
