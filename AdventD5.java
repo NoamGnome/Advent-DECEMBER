@@ -10,7 +10,7 @@ public class AdventD5 {
         ArrayList<String> fileData = getFileData("src/Day5Input.txt");
         ArrayList<String> lists = new ArrayList<String>();
         ArrayList<String> rules = new ArrayList<String>();
-        ArrayList<Integer> wrongs = new ArrayList<>();
+        ArrayList<String> wrongs = new ArrayList<>();
         for (int i = 0; i < fileData.size(); i++) {
             if (fileData.get(i).length() > 5) {
                 lists.add(fileData.get(i));
@@ -28,13 +28,21 @@ public class AdventD5 {
                 int firstNum = list.indexOf(rules.get(i).substring(0, 2));
                 int secondNum = list.indexOf(rules.get(i).substring(3,5));
                 if ((firstNum != -1 && secondNum != -1) && (firstNum > secondNum)) {
-                    System.out.println(firstNum + " " + secondNum);
-                    System.out.println(rules.get(i).substring(0, 2) + " " + rules.get(i).substring(3,5));
-                    System.out.println(lists.get(k));
+                    if (!wrongs.contains(list)) {
+                        wrongs.add(list);
+                    }
                 }
             }
             k++;
         }
+        for (int i = 0; i < wrongs.size(); i++) {
+            lists.remove(wrongs.get(i));
+        }
+        int total = 0;
+        for (int g = 0; g < lists.size(); g++) {
+            total += Integer.parseInt(lists.get(g).substring((lists.get(g).length() / 2) - 1, ((lists.get(g).length() / 2) + 1)));
+        }
+        System.out.println(total);
     }
     public static ArrayList<String> getFileData(String fileName) {
         //192
